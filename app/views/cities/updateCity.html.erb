@@ -1,0 +1,12 @@
+<%= form_with method: "post" do |form| %>
+  <%= form.label :city %>
+  <%= form.text_field :city %>
+
+  <%= form.label :landmark %>
+  <%= form.text_field :landmark %>
+
+  <%= form.label :population %>
+  <%= form.number_field :population %>
+
+  <%= form.submit %>
+<% end %>

@@ -1,0 +1,49 @@
+<!-- Case 0: Name parameter NOT supplied. -->
+<% if !params.has_key?(:city) %>
+  <!-- Case 0.A: Number of cities equal 0. -->
+  <!--           Message that says no cities! -->
+  <% if City.all().length == 0 %>
+    <h1>Go to /cities/new to create a city!</h1>
+    <!-- Case 0.B: Number of cities greater than 0. -->
+    <!--           Display information for all cities. -->
+  <% else %>
+    <% City.all().each do |cityName, city| %>
+      <% if not city.nil? %>
+        <h2><%= city.name %></h2>
+        <hr></hr>
+        <p>Population: <%= city.population %><p>
+        <p>Landmark: <%= city.landmark %><p>
+        <p>Temperature (Kelvin): <%= city.weather[:temperature] %><p>
+        <p>Description of Temperature: <%= city.weather[:description] %><p>
+      <% end %>
+    <% end %>
+  <% end %>
+
+<!-- Case 1: Name parameter supplied. -->
+<!-- TODO: Case where no cities exist? -->
+
+<% else %>
+  <!-- Case 1.A: Name parameter supplied DOES exist. -->
+  <!--           Display information for specific city. -->
+  <% if City.all().has_key?(params[:city].to_sym) %>
+    <h2><%= City.all().fetch(params[:city].to_sym).name %></h2>
+    <hr></hr>
+    <p>Population: <%= City.all().fetch(params[:city].to_sym).population %><p>
+    <p>Landmark: <%= City.all().fetch(params[:city].to_sym).landmark %><p>
+    <p>Temperature (Kelvin): <%= City.all().fetch(params[:city].to_sym).weather[:temperature] %><p>
+    <p>Description of Temperature: <%= City.all().fetch(params[:city].to_sym).weather[:description] %><p>
+  <!-- Case 1.B: Name parameter supplied DOES NOT exist. -->
+  <!--           Display information for all cities. -->
+  <% else %>
+    <% City.all().each do |cityName, city| %>
+      <% if not city.nil? %>
+        <h2><%= city.name %></h2>
+        <hr></hr>
+        <p>Population: <%= city.population %><p>
+        <p>Landmark: <%= city.landmark %><p>
+        <p>Temperature (Kelvin): <%= city.weather[:temperature] %><p>
+        <p>Description of Temperature: <%= city.weather[:description] %><p>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
